@@ -45,8 +45,4 @@ It is designed to support users, not replace professional medical diagnosis or t
 - `scripts/` — Automation and ingestion scripts
 - `docs/` — Project documentation
 
-## Disclaimer
-AuraMed AI provides preliminary health information and urgency guidance. It does not provide definitive medical diagnoses or replace qualified healthcare professionals.
-=======
-
 >>>>>>> a639d21c4165c694292c8cd074886fde1f08905a
