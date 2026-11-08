@@ -5,7 +5,7 @@
 
 ## Course Information
 - Course: CSE4104
-- Team: CSE4104-7G-T05
+- Team: CSE4104-7G-T04
 - Section: 7G
 
 ## Project Overview
