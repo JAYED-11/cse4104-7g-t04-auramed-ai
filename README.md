@@ -35,7 +35,7 @@ It is designed to support users, not replace professional medical diagnosis or t
 - Image and medical report upload
 - AI-powered RAG responses with source references
 - Preliminary urgency classification
-- Bengali and English support
+- Bengali and English language support
 - Health profile and analysis history
 
 ## Repository Structure
