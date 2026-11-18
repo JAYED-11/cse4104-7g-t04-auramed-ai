@@ -8,3 +8,5 @@ python-dotenv
 pydantic-settings
 alembic
 python-multipart
+fastapi
+uvicorn[standard]

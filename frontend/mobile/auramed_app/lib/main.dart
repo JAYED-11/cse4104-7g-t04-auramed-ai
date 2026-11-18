@@ -1,4 +1,4 @@
-
+import 'chat_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -270,8 +270,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             const SizedBox(height: 23),
 
                             ElevatedButton(
-                              onPressed: () =>
-                                  showComingSoon('AI Health Chat'),
+                              onPressed: () {
+                                Navigator.push(
+                                 context,
+                                 MaterialPageRoute(
+                                  builder: (context) => const ChatScreen(),
+                                 ),
+                               );
+                             },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: const Color(0xFFBCE5D8),
                                 foregroundColor: dark,
