@@ -18,7 +18,7 @@
 ## 3. Team Members
 
 | Name | Student ID | Responsibility |
-|------|------------|----------------|
+|---|---|---|
 | Md Taohidul Islam | 11230321510 | Team Leader, Backend Developer, System Integrator |
 | Summya Riya | 11230321509 | AI/RAG Developer, Knowledge Base Manager, Database Designer |
 | Momota Sultana Maya | 11230321527 | Flutter Frontend Developer, UI/UX Designer |
@@ -101,7 +101,8 @@ AuraMed AI follows a modular six-layer architecture:
 7. The result is returned to the Flutter application.
 
 ## 9. Repository Structure
---->
+
+```text
 auramed-ai/
 │
 ├── backend/                 # FastAPI backend application
@@ -120,6 +121,7 @@ auramed-ai/
 ├── docker-compose.yml
 ├── LICENSE
 └── README.md
+```
 
 ## 10. Project Status
 
