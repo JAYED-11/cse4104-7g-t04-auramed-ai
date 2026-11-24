@@ -1,5 +1,7 @@
 
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -32,27 +34,86 @@ class _ChatScreenState extends State<ChatScreen> {
   ];
 
   void _sendMessage([String? suggestedMessage]) {
-    final message = suggestedMessage ?? _controller.text.trim();
+   
+Future<void> _sendMessage([String? suggestedMessage]) async {
+  final message = suggestedMessage ?? _controller.text.trim();
 
-    if (message.isEmpty) return;
+  if (message.isEmpty) return;
+
+  setState(() {
+    _messages.add({
+      'text': message,
+      'isUser': true,
+      'time': 'Now',
+    });
+
+    _controller.clear();
+  });
+
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    if (_scrollController.hasClients) {
+      _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
+    }
+  });
+
+  try {
+    final response = await http.post(
+      Uri.parse('http://127.0.0.1:8000/chat'),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode({
+        'message': message,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+
+      if (!mounted) return;
+
+      setState(() {
+        _messages.add({
+          'text': data['reply'],
+          'isUser': false,
+          'time': 'Now',
+        });
+      });
+    } else {
+  debugPrint('Status code: ${response.statusCode}');
+  debugPrint('Response body: ${response.body}');
+
+  throw Exception('Server error: ${response.statusCode}');
+}
+  } catch (e) {
+    if (!mounted) return;
 
     setState(() {
       _messages.add({
-        'text': message,
-        'isUser': true,
-        'time': 'Now',
-      });
-
-      _controller.clear();
-
-      // Temporary response until the AI backend is connected.
-      _messages.add({
-        'text':
-            'Thank you for your question! The AI response service will be connected soon. For now, please consult a qualified healthcare professional for medical advice.',
+        'text': 'Unable to connect to AuraMed AI. Please try again.',
         'isUser': false,
         'time': 'Now',
       });
     });
+
+    debugPrint('Chat API error: $e');
+  }
+
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    if (_scrollController.hasClients) {
+      _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
+    }
+  });
+}
+
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_scrollController.hasClients) {
